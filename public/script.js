@@ -9,7 +9,7 @@ $(document).ready(function() {
 function getTransportTypes() {
     const transportTypesList = document.getElementById("transportType");
     const url = "http://192.168.0.100:8080/api/transport/type/getTypes";
-    return fetchWithAuth(url).then(function(response) {
+    return fetchWithAuth(url, {}).then(function(response) {
         if (response.ok) {
             return response.json().then(function(jsonData) {
                 console.log(jsonData);
@@ -70,7 +70,7 @@ function add_field(fieldType, paramId) {
 function getCheckedTransportParams(transportId) {
     let url = "http://192.168.0.100:8080/api/transport/param/getParams/" + transportId;
 
-    return fetchWithAuth(url).then(function(response) {
+    return fetchWithAuth(url, {}).then(function(response) {
         if (response.ok) {
             return response.json().then(function(jsonData) {
                 console.log(jsonData);

@@ -1,5 +1,5 @@
-function refreshToken(token) {
-    return fetch('http://192.168.0.100:8081/auth/updateAccessToken', {
+async function refreshToken(token) {
+    const res = await fetch('http://192.168.0.100:8081/auth/updateAccessToken', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -7,20 +7,25 @@ function refreshToken(token) {
             body: JSON.stringify({
                 refresh_token: token,
             }),
-        })
-        .then((res) => {
-            if (res.status === 200) {
-                saveTokenData(res.json()); // сохраняем полученный обновленный токен в sessionStorage, с помощью функции, заданной ранее
-                return Promise.resolve();
-            }
-            return Promise.reject();
         });
+        const data = await res.json();
+        if (res.status ==200) {
+            var decodedToken = saveTokenData(data);
+            console.timeLog(decodedToken);
+        }
+        // .then((res) => {
+        //     if (res.status === 200) {
+        //         saveTokenData(res.json()); // сохраняем полученный обновленный токен в sessionStorage, с помощью функции, заданной ранее
+        //         return Promise.resolve();
+        //     }
+        //     return Promise.reject();
+        // });
 }
 
 
 async function fetchWithAuth(url, options) {
 
-    const loginUrl = 'http://localhost:8080/login';
+    const loginUrl = 'http://localhost:8080';
     let tokenData = null;
 
     if (localStorage.tokenData) {
@@ -28,13 +33,13 @@ async function fetchWithAuth(url, options) {
     } else {
         return window.location.replace(loginUrl);
     }
-    console.log(options);
+
     if (!options.headers) {
         options.headers = {};
     }
 
     if (tokenData) {
-        if (Date.now() >= localStorage.expTime) {
+        if (Date.now() < JSON.parse(localStorage.expTime)) {
             try {
                 // const newToken =
                 await refreshToken(tokenData.refresh_token);
@@ -65,6 +70,7 @@ $(document).ready(function() {
         // console.log(decodeToken);
         localStorage.setItem("expTime", JSON.stringify(decodeToken["exp"]));
         localStorage.setItem("tokenData", JSON.stringify(token));
+        // console.log(JSON.parse(localStorage.expTime));
         return decodeToken;
     }
 
