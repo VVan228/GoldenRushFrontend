@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="./auth.js"></script>
     <script type="text/javascript" src="./script.js"></script>
-    
+
 </head>
 
 <body>
@@ -178,9 +178,9 @@
                 <!--    КНОПКА ПОДТВЕРЖДЕНИЯ    -->
                 <div class="row mt-4">
                     <div class="col-12">
-                        <button class="form-control btn bg-primary border-0" id="confirm-request">
-                            Запросить
-                        </button>
+                        <button class="form-control btn bg-primary border-0 disabled" id="confirm-request">
+                                Запросить
+                            </button>
                     </div>
                 </div>
 
@@ -232,7 +232,7 @@
             <button class="btn bg-primary h1 rounded-pill d-flex justify-content-center align-items-center pulse-button " id="new-request" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 <h1>+</h1>
             </button>
-            <span class="hidden"></span>
+            <span class="hidden" id="transport-params"></span>
         </footer>
     </div>
 </body>
