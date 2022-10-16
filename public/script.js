@@ -159,7 +159,7 @@ $(document).ready(function() {
 
     function updateSelectedDate() {
         let diffMilleseconds;
-        let dateBegin = $("#date-begin").val();
+        let dateBegin = $("#date-begin").val().toString();
         let timeBegin = parseTime($("#time-begin").val());
         let timeEnd = parseTime($("#time-end").val());
         if (timeBegin && timeEnd) {
@@ -311,9 +311,6 @@ $(document).ready(function() {
     $("#confirm-request").on("click", function() {
 
         $("#request-container").html($("#request-container").html() + requestTemplate);
-        $(".request").each(function(index, element) {
-            $(this).find($(".request-id")).text(`#${index}`)
-        });
 
         TRANSPORT_PARAMS = $("#transport-params").text().trim().split(" ");
         let res = {
@@ -328,6 +325,11 @@ $(document).ready(function() {
             'transport_data': TRANSPORT_PARAMS,
             'client_id': 2
         }
+
+        $(".request").each(function(index, element) {
+            $(this).find($(".request-id")).text(`#${index}`)
+            $(".request")[index].find($(".transport-id")).text(res.transport_data_id)
+        });
 
         console.log(res)
 
