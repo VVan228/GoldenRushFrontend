@@ -1,0 +1,32 @@
+body {
+    overflow: hidden;
+}
+
+#layout {
+    height: 100vh;
+    width: 100vw;
+}
+
+.fill-white {
+    color: white;
+}
+
+.offcanvas.bg-dark-opacity {
+    background: linear-gradient(90deg, #383A37 0%, rgba(26, 28, 26, 0.9) 100%) !important;
+}
+
+.bg-dark-grey {
+    background-color: #343a40 !important;
+}
+
+.truck {
+    background-color: #464745!important;
+}
+
+table>tr>.truck {
+    border-radius: 2rem 0 0 0;
+}
+
+.busy-cell {
+    border-bottom: 1px solid #FAB529 !important;
+}

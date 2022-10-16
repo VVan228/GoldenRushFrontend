@@ -1,0 +1,112 @@
+#layout {
+    height: 100vh;
+    z-index: 950;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.bg-dark {
+    background-color: #373936 !important;
+}
+
+.bg-grey {
+    background-color: #464745 !important;
+}
+
+.bg-primary {
+    background-color: #FAB529 !important;
+}
+
+#new-request {
+    width: 50px;
+    height: 50px;
+    bottom: 0;
+    right: 0;
+    margin: 1rem;
+    position: absolute;
+}
+
+.fill-white {
+    color: white;
+}
+
+.w-95 {
+    width: 95%!important;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .h-sm-50 {
+        height: 50% !important;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    body {
+        overflow: hidden;
+    }
+}
+
+.rounded-start-pill {
+    border-radius: 2rem 0 0 0;
+}
+
+.text-yellow {
+    color: #FAB529 !important;
+}
+
+#choose-place>.modal-dialog>.modal-content {
+    height: 80vh !important;
+}
+
+.modal-body>#map {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.form-check-input,
+.form-check-input+label {
+    transition: .5s;
+}
+
+.form-check-input:checked {
+    background-color: #FAB529;
+    border-color: #FAB529;
+}
+
+.form-check-input:checked+label {
+    color: #FAB529;
+}
+
+input i {
+    color: #FAB529 !important;
+}
+
+#new-request-offcanvas-body {
+    height: 100%;
+}
+
+#new-request-offcanvas-body>.container {
+    height: 50%;
+}
+
+.request {
+    transition: .3s ease-in-out;
+}
+
+.request:hover {
+    background-color: #FAB529 !important;
+    transform: translate(0, -2px);
+    box-shadow: 0px 0px 50px #fab429aa;
+}
+
+.request:hover>div>.request-id {
+    background-color: #373936 !important;
+    color: #FAB529 !important;
+    transform: translate(0, -2px);
+}

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=0f06ce17-342b-4613-a56c-f77300f274ac&lang=ru_RU" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="./auth.js"></script>
+    <script type="text/javascript" src="./script.js"></script>
+    
+</head>
+
+<body>
+
+    <!-- МОДАЛЬНОЕ ОКНО ВЫБОРА ТЕХНИКИ -->
+    <div class="modal fade" id="choose-transport" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-light" id="exampleModalLabel">Выбор техники</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body py-0 px-2">
+                    <!--         Парк техники -->
+                    <div class="row text-center">
+                        <div class="col text-yellow h5">Тип</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <select name="#" id="transportType" class="form-control bg-grey text-light border-0"></select>
+                        </div>
+                    </div>
+                    <!--         Особенности -->
+                    <div class="row text-center mt-3">
+                        <div class="col text-yellow h5">Особенности</div>
+                    </div>
+                    <div class="row">
+                        <div class="col" id="paramsForm">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn bg-primary" id="confirm-transport-choose" data-bs-dismiss="modal">Применить</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ВЫБОРА ВРЕМЕНИ -->
+    <div class="modal fade" id="choose-date" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-light" id="exampleModalLabel">Выбор времени</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body text-light">
+                    <div class="row">
+                        <div class="col-2">День</div>
+                        <div class="col"><input type="date" class="form-control bg-grey text-light border-0" id="date-begin"></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-2">Начало</div>
+                        <div class="col"><input type="time" class="form-control bg-grey text-light border-0" id="time-begin"></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-2">Конец</div>
+                        <div class="col"><input type="time" class="form-control bg-grey text-light border-0" id="time-end"></div>
+                    </div>
+                    <div class="row mt-3">
+
+                    </div>
+                    <!--         <div class="row mt-1">
+          <div class="col-12">
+            <input type="range" class="form-range text-yellow" min="0" max="1440" value="0" id="duration-value">
+          </div>
+        </div> -->
+                </div>
+                <div class="modal-footer border-0">
+                    <div class="col-auto hidden text-light">Продолжительность</div>
+                    <div class="col h5 text-yellow" id="duration-text"></div>
+                    <button type="button" class="btn bg-primary disabled" id="confirm-date-choose" data-bs-dismiss="modal">Применить</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ВЫБОРА МЕСТА -->
+    <div class="modal modal-xl fade" id="choose-place" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-light" id="exampleModalLabel">Выбор места</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div id="map"></div>
+                </div>
+                <div class="modal-footer border-0 text-light">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="save-place">
+                        <label class="form-check-label" for="save-place">
+                            Сохранить точку
+                        </label>
+                    </div>
+                    <div class="col d-flex justify-content-center text-yellow h5" id="selected-coords-text"></div>
+                    <button type="button" class="btn bg-primary disabled" id="confirm-place-button" data-bs-dismiss="modal">Применить</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ОФФКАНВАС НОВОЙ ЗАЯВКИ -->
+    <div class="rounded-start-pill offcanvas offcanvas-end bg-dark" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="row py-2 d-flex justify-content-between w-100">
+            <div class="col-1"></div>
+            <div class="col-10 d-flex justify-content-center">
+                <h5 class="offcanvas-title text-yellow" id="offcanvasExampleLabel">Новая заявка</h5>
+            </div>
+            <div class="col-1 d-flex justify-content-end">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+            </div>
+
+        </div>
+        <!--   ТЕЛО ОФФКАНВАСА -->
+        <div class="offcanvas-body px-5 d-flex flex-column text-light" id="new-request-offcanvas-body">
+            <div class="container d-flex justify-content-between flex-column p-2">
+                <!--   ВЫБОР ТЕХНИКИ   -->
+                <div class="row">
+                    <div class="col"><i class="bi bi-truck text-yellow"></i>&nbsp;&nbsp;Техника</div>
+                    <div class="col">
+                        <button class="btn bg-primary form-control" data-bs-toggle="modal" data-bs-target="#choose-transport" id="choose-transport-button">Выбрать...</button>
+                    </div>
+                </div>
+                <!--   ВЫБОР ДАТЫ   -->
+                <div class="row mt-2">
+                    <div class="col"><i class="bi bi-clock text-yellow"></i>&nbsp;&nbsp;Время</div>
+                    <div class="col">
+                        <button class="btn bg-primary form-control" data-bs-toggle="modal" data-bs-target="#choose-date" id="choose-date-button">Выбрать...</button>
+                    </div>
+                </div>
+                <!--   ВЫБОР МЕСТА   -->
+                <div class="row mt-2">
+                    <div class="col"><i class="bi bi-geo-alt text-yellow"></i>&nbsp;&nbsp;Место</div>
+                    <div class="col">
+                        <button class="btn bg-primary form-control" data-bs-toggle="modal" data-bs-target="#choose-place" id="choose-place-button">Выбрать...</button>
+                    </div>
+                </div>
+                <!--   КОММЕНТАРИЙ   -->
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <textarea name="" id="" cols="30" rows="2" style="resize:none; " class="form-control bg-grey text-light border-0" placeholder="Комментарий..."></textarea>
+                    </div>
+                </div>
+                <!--    СРОЧНОСТЬ    -->
+                <div class="row w-100 mt-3">
+                    <div class="col-12 d-flex justify-content-center">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="emergency-check">
+                            <label class="form-check-label" for="emergency-check">
+                                Срочно
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+                <!--    КНОПКА ПОДТВЕРЖДЕНИЯ    -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <button class="form-control btn bg-primary border-0" id="confirm-request">
+                            Запросить
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="layout" class="bg-dark">
+        <header>
+
+        </header>
+
+        <div class="container-fluid d-flex p-0 h-100">
+            <div class="row w-100 p-0">
+
+                <!-- ЛЕВЫЙ БАР С КАРТОЙ  -->
+                <div class="col-lg-8 col-sm-12 h-sm-50 p-0 rounded-5" id="map-main"></div>
+
+
+                <!-- ПРАВЫЙ БАР С ЗАЯВКАМИ -->
+                <div class="col-lg-4 col-sm-12 h-sm-50 p-0">
+                    <div class="container d-flex flex-column justify-content-center">
+                        <!-- ЗАГОЛОВОК -->
+                        <div class="row pt-2 w-100 h3 text-yellow d-flex justify-content-center">
+                            <div class="col-auto"> Мои заявки</div>
+                        </div>
+
+                        <!-- ТЕЛО ЗАЯВОК -->
+                        <div class="container" id="request-container">
+                            <div class="row mt-2 bg-grey rounded-5 p-3 text-light request">
+                                <div class="col-1">
+                                    <span class="badge bg-primary text-dark request-id">#0</span>
+                                </div>
+                                <div class="col text-center">Техника</div>
+                                <div class="col text-center">Время</div>
+                                <div class="col text-center">Место</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <footer>
+            <button class="btn bg-primary h1 rounded-pill d-flex justify-content-center align-items-center pulse-button " id="new-request" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                <h1>+</h1>
+            </button>
+            <span class="hidden"></span>
+        </footer>
+    </div>
+</body>
+
+</html>

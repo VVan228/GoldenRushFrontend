@@ -1,0 +1,10 @@
+#pattern {
+    background-image: url("./polys-pattern.png");
+    background-size: cover;
+    width: 50vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    position: absolute;
+    z-index: 900;
+}
